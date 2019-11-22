@@ -38,15 +38,15 @@ prompt([
 
                         exec(`git checkout -b feature/${answers.feature} develop`, (err, stdout, stderr) => {
             
-                            if (stderr) {
+                            if (err) {
                                 vln.err(stderr);
                                 return;
                             }
 
-                            vln.log(`Branch 'feature/${answers.feature}' created.`);
+                            vln.log(stdout);
                         });
                     } else {
-                        vln.log(`Feature 'feature/${answers.feature}' checkout canceled.`);
+                        vln.log(`Checkout for branch 'feature/${answers.feature}' canceled.`);
                     }
                 });
             // exec('git rev-parse --abbrev-ref HEAD', (err, stdout, stderr) => {
