@@ -1,6 +1,6 @@
 {
     "name": "vilon-tasks",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "Tasks for the different projects",
     "scripts": {
         "feature": "node ./git/checkout-feature.js"
