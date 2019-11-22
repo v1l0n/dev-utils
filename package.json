@@ -1,0 +1,12 @@
+{
+    "name": "vilon-tasks",
+    "version": "0.0.1",
+    "description": "Tasks for the different projects",
+    "scripts": {
+        "feature": "node ./git/checkout-feature.js"
+    },
+    "dependencies": {
+        "chalk": "3.0.0",
+        "inquirer": "7.0.0"
+    }
+}
