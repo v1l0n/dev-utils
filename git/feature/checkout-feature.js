@@ -1,7 +1,7 @@
 const { exec } = require('child_process');
 const { existsSync, readdirSync } = require('fs');
 const { prompt } = require('inquirer');
-const vln = require('../node/functions');
+const vln = require('../../node/functions');
 const chalk = require('chalk');
 
 /**

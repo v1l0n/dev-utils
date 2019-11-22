@@ -3,7 +3,7 @@
     "version": "0.0.1",
     "description": "Tasks for the different projects",
     "scripts": {
-        "feature": "node ./git/checkout-feature.js"
+        "feature": "node ./git/feature/checkout-feature.js"
     },
     "dependencies": {
         "chalk": "3.0.0",
