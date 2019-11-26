@@ -1,9 +1,14 @@
 {
     "name": "vilon-tasks",
-    "version": "0.0.2",
+    "version": "0.1.0",
     "description": "Tasks for the different projects",
     "scripts": {
-        "feature": "node ./git/checkout-feature.js"
+        "feature": "node ./git/feature/checkout-feature.js",
+        "hotfix": "node ./git/hotfix/checkout-hotfix.js",
+        "release": "node ./git/release/checkout-release.js",
+        "merge-feature": "node ./git/feature/merge-feature.js",
+        "merge-hotfix": "node ./git/feature/merge-hotfix.js",
+        "merge-release": "node ./git/release/merge-release.js"
     },
     "dependencies": {
         "chalk": "3.0.0",
