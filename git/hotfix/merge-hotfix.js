@@ -1,4 +1,4 @@
-const { prompt } = require('inquirer');
+const packageJson = require('../../package.json');
 const vln = require('../../node/functions');
 
 let activeBranch;
@@ -12,12 +12,15 @@ vln.selectProject()
     .then(() => vln.getActiveBranchName())
     .then(activeBranchName => {
         activeBranch = activeBranchName;
-        return vln.selectBranch(activeBranchName, 'feature');
+        return vln.selectBranch(activeBranchName, 'hotfix');
     })
     .then(selectedBranchName => {
         selectedBranch = selectedBranchName;
         return vln.execPromise('git checkout develop');
     })
     .then(() => vln.execPromise(`git merge --no-ff ${selectedBranch}`))
+    .then(() => vln.execPromise('git checkout master'))
+    .then(() => vln.execPromise(`git merge --no-ff ${selectedBranch}`))
+    .then(() => vln.execPromise(`git tag -a v${packageJson.version} -m 'v${packageJson.version}'`))
     .then(() => vln.execPromise(`git checkout ${activeBranch}`))
     .catch(error => vln.err(error));

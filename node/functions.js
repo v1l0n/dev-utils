@@ -2,6 +2,8 @@ const { exec } = require('child_process');
 const { readdirSync } = require('fs');
 const { prompt } = require('inquirer');
 const chalk = require('chalk');
+const packageJson = require('../package.json');
+
 
 exports.log = function log(message, type='info') {
     let logHeader = chalk.blue('[VLN] ');
@@ -92,6 +94,31 @@ exports.selectBranch = (activeBranchName, filter) => getBranchList(filter).then(
 
 exports.selectFeatureBranch = () => this.selectBranch('feature');
 
+exports.updateVersion = (versionUpdateType) => {
+    let i = 0;
+
+    return packageJson.version.replace(/[0-9]+/g, number => {
+        i++;
+
+        if (
+            (i == 1 && versionUpdateType == 'major') ||
+            (i == 2 && versionUpdateType == 'minor') ||
+            (i == 3 && versionUpdateType == 'patch')
+        ) {
+            return parseInt(number) + 1;
+        }
+
+        if (
+            (i == 1 && versionUpdateType.match(/^minor|patch$/)) ||
+            (i == 2 && versionUpdateType == 'patch')
+        ) {
+            return number;
+        }
+
+        return 0;
+    });
+}
+
 exports.execPromise = (command) => new Promise((resolve, reject) => {
     exec(command, (error, stdout, stderr) => {
 
@@ -112,18 +139,6 @@ getBranchList = (filter) => this.execPromise('git branch -a')
             branch.trim()
         )
     );
-// getBranchList = (filter) => new Promise((resolve, reject) => {
-//     exec('git branch -a', (error, stdout, stderr) => {
-
-//         if (error) {
-//             this.err(stderr);
-//             reject(stderr);
-//         }
-
-//         const branchList = stdout.split('\n').map(branch => (branch.substring(0, 2) == '* ') ? branch.slice(- branch.length + 2) : branch.trim());
-//         resolve((filter == null) ? branchList : branchList.filter(branch => branch.startsWith(filter)))
-//     });
-// });
 
 promptBranches = (branchList) => {
 
