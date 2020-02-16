@@ -1,7 +1,7 @@
 {
-    "name": "npm-utils",
+    "name": "dev-utils",
     "version": "0.1.2",
-    "description": "Development utilities for NPM registries",
+    "description": "Development utilities",
     "scripts": {
         "feature": "node ./git/feature/checkout-feature.js",
         "hotfix": "node ./git/hotfix/checkout-hotfix.js",
