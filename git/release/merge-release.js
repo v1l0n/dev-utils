@@ -1,4 +1,3 @@
-const packageJson = require('../../package.json');
 const vln = require('../../node/functions');
 
 let options = {};
