@@ -24,7 +24,7 @@ vln.selectProject()
     .then(() => vln.execPromise('git checkout master', options))
     .then(() => vln.execPromise(`git merge --no-ff ${selectedBranch}`, options))
     .then(() => {
-        const packageJson = require(`../${options.cwd}/package.json`);
+        const packageJson = require(`${options.cwd}/package.json`);
         return vln.execPromise(`git tag -a v${packageJson.version} -m 'v${packageJson.version}'`, options);
     })
     .then(() => vln.execPromise(`git checkout ${activeBranch}`, options))
