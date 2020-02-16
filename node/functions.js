@@ -2,10 +2,8 @@ const { exec } = require('child_process');
 const { readdirSync } = require('fs');
 const { prompt } = require('inquirer');
 const chalk = require('chalk');
-const packageJson = require('../package.json');
 
-
-exports.log = function log(message, type='info') {
+exports.log = function log(message, type = 'info') {
     let logHeader = chalk.blue('[VLN] ');
 
     switch (type) {
@@ -55,8 +53,9 @@ exports.selectProject = () => {
     }
 }
 
-exports.getActiveBranchName = () => new Promise((resolve, reject) => {
-    exec('git rev-parse --abbrev-ref HEAD', (error, stdout, stderr) => {
+exports.getActiveBranchName = (options) => new Promise((resolve, reject) => {
+    
+    exec('git rev-parse --abbrev-ref HEAD', options, (error, stdout, stderr) => {
 
         if (error) {
             this.err(stderr);
@@ -67,7 +66,7 @@ exports.getActiveBranchName = () => new Promise((resolve, reject) => {
     });
 });
 
-exports.selectBranch = (activeBranchName, filter) => getBranchList(filter).then(branchList => {
+exports.selectBranch = (activeBranchName, filter, options) => getBranchList(filter, options).then(branchList => {
 
     if (filter == null || activeBranchName.startsWith(filter)) {
         return prompt([{
@@ -92,9 +91,10 @@ exports.selectBranch = (activeBranchName, filter) => getBranchList(filter).then(
     }
 });
 
-exports.selectFeatureBranch = () => this.selectBranch('feature');
+// exports.selectFeatureBranch = () => this.selectBranch('feature');
 
-exports.updateVersion = (versionUpdateType) => {
+exports.updateVersion = (versionUpdateType, options) => {
+    const packageJson = require(`../${options.cwd}/package.json`);
     let i = 0;
 
     return packageJson.version.replace(/[0-9]+/g, number => {
@@ -119,8 +119,8 @@ exports.updateVersion = (versionUpdateType) => {
     });
 }
 
-exports.execPromise = (command) => new Promise((resolve, reject) => {
-    exec(command, (error, stdout, stderr) => {
+exports.execPromise = (command, options) => new Promise((resolve, reject) => {
+    exec(command, options, (error, stdout, stderr) => {
 
         if (error) {
             this.err(stderr);
@@ -131,7 +131,7 @@ exports.execPromise = (command) => new Promise((resolve, reject) => {
     });
 });
 
-getBranchList = (filter) => this.execPromise('git branch -a')
+getBranchList = (filter, options) => this.execPromise('git branch -a', options)
     .then(stdout => stdout
         .split('\n')
         .map(branch => (branch.substring(0, 2) == '* ') ? 
