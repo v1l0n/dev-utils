@@ -1,7 +1,7 @@
 {
-    "name": "vilon-tasks",
-    "version": "0.1.0",
-    "description": "Tasks for the different projects",
+    "name": "npm-utils",
+    "version": "0.1.1",
+    "description": "Development utilities for NPM registries",
     "scripts": {
         "feature": "node ./git/feature/checkout-feature.js",
         "hotfix": "node ./git/hotfix/checkout-hotfix.js",
@@ -11,7 +11,7 @@
         "merge-release": "node ./git/release/merge-release.js"
     },
     "dependencies": {
-        "chalk": "3.0.0",
-        "inquirer": "7.0.0"
+        "chalk": "^3.0.0",
+        "inquirer": "^7.0.0"
     }
 }
